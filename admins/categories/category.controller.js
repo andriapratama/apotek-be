@@ -93,13 +93,23 @@ export const findAllCategoryData = async (req, res) => {
 
 export const findOneCategoryData = async (req, res) => {
 	try {
-		const category = await Category.findOne({
+		const foundData = await Category.findOne({
 			where: {
 				category_id: req.params.id,
 			},
 		});
 
-		return responses(res, 200, "Find one category data by id", category);
+		if (!foundData || typeof foundData === "string") {
+			return responses(res, 400, "Data is not valid");
+		} else {
+			const category = await Category.findOne({
+				where: {
+					category_id: req.params.id,
+				},
+			});
+
+			return responses(res, 200, "Find one category data by id", category);
+		}
 	} catch (error) {
 		console.log(error);
 		return responses(res, 500, "server error");
