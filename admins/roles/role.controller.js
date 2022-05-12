@@ -80,13 +80,23 @@ export const findAllRoleData = async (req, res) => {
 
 export const findOneRoleData = async (req, res) => {
 	try {
-		const role = await Role.findOne({
+		const foundData = await Role.findOne({
 			where: {
 				role_id: req.params.id,
 			},
 		});
 
-		return responses(res, 200, "Find one role data by id", role);
+		if (!foundData || typeof foundData === "string") {
+			return responses(res, 400, "Data is not valid");
+		} else {
+			const role = await Role.findOne({
+				where: {
+					role_id: req.params.id,
+				},
+			});
+
+			return responses(res, 200, "Find one role data by id", role);
+		}
 	} catch (error) {
 		console.log(error);
 		return responses(res, 500, "server error");
