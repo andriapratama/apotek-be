@@ -135,18 +135,28 @@ export const updateTypeData = async (req, res) => {
 		});
 
 		if (!foundName || typeof foundName === "string") {
-			await Type.update(
-				{
-					name: req.body.name.toLowerCase(),
+			const foundId = await Type.findOne({
+				where: {
+					type_id: req.body.typeId,
 				},
-				{
-					where: {
-						type_id: req.body.typeId,
-					},
-				}
-			);
+			});
 
-			return responses(res, 200, "Type name was changed");
+			if (!foundId || typeof foundId === "string") {
+				return responses(res, 400, "Id is not valid");
+			} else {
+				await Type.update(
+					{
+						name: req.body.name.toLowerCase(),
+					},
+					{
+						where: {
+							type_id: req.body.typeId,
+						},
+					}
+				);
+
+				return responses(res, 200, "Type name was changed");
+			}
 		} else {
 			return responses(res, 400, "Type name already used");
 		}
