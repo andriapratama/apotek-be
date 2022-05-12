@@ -135,18 +135,28 @@ export const updateCategoryData = async (req, res) => {
 		});
 
 		if (!foundName || typeof foundName === "string") {
-			await Category.update(
-				{
-					name: req.body.name,
+			const foundId = await Category.findOne({
+				where: {
+					category_id: req.body.categoryId,
 				},
-				{
-					where: {
-						category_id: req.body.categoryId,
-					},
-				}
-			);
+			});
 
-			return responses(res, 200, "Category name was changed");
+			if (!foundId || typeof foundId === "string") {
+				return responses(res, 400, "Id is not valid");
+			} else {
+				await Category.update(
+					{
+						name: req.body.name,
+					},
+					{
+						where: {
+							category_id: req.body.categoryId,
+						},
+					}
+				);
+
+				return responses(res, 200, "Category name was changed");
+			}
 		} else {
 			return responses(res, 400, "Category name already used");
 		}
