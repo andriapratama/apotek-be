@@ -93,13 +93,23 @@ export const findAllTypeData = async (req, res) => {
 
 export const findOneTypeData = async (req, res) => {
 	try {
-		const type = await Type.findOne({
+		const foundData = await Type.findOne({
 			where: {
 				type_id: req.params.id,
 			},
 		});
 
-		return responses(res, 200, "Find one type data by id", type);
+		if (!foundData || typeof foundData === "string") {
+			return responses(res, 400, "Data is not valid");
+		} else {
+			const type = await Type.findOne({
+				where: {
+					type_id: req.params.id,
+				},
+			});
+
+			return responses(res, 200, "Find one type data by id", type);
+		}
 	} catch (error) {
 		console.log(error);
 		return responses(res, 500, "server error");
@@ -127,7 +137,7 @@ export const updateTypeData = async (req, res) => {
 		if (!foundName || typeof foundName === "string") {
 			await Type.update(
 				{
-					name: req.body.name,
+					name: req.body.name.toLowerCase(),
 				},
 				{
 					where: {
