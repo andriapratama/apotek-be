@@ -122,16 +122,26 @@ export const updateRoleData = async (req, res) => {
 		});
 
 		if (!foundName || typeof foundName === "string") {
-			await Role.update(
-				{
-					name: req.body.name,
+			const foundId = await Role.findOne({
+				where: {
+					role_id: req.body.roleId,
 				},
-				{
-					where: {
-						role_id: req.body.roleId,
+			});
+
+			if (!foundId || typeof foundId === "string") {
+				return responses(res, 400, "Id is not valid");
+			} else {
+				await Role.update(
+					{
+						name: req.body.name.toLowerCase(),
 					},
-				}
-			);
+					{
+						where: {
+							role_id: req.body.roleId,
+						},
+					}
+				);
+			}
 
 			return responses(res, 200, "Role name was changed");
 		} else {
