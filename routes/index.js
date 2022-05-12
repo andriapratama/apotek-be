@@ -7,6 +7,13 @@ import {
 	updateCategoryData,
 } from "../admins/categories/category.controller.js";
 import {
+	createGroupData,
+	deleteGroupData,
+	findAllGroupData,
+	findOneGroupData,
+	updateGroupData,
+} from "../admins/groups/group.controller.js";
+import {
 	createRoleData,
 	deleteRoleData,
 	findAllRoleData,
@@ -40,5 +47,11 @@ router.get("/type", findAllTypeData);
 router.get("/type/:id", findOneTypeData);
 router.patch("/type", updateTypeData);
 router.delete("/type/:id", deleteTypeData);
+
+router.post("/group", createGroupData);
+router.get("/group", findAllGroupData);
+router.get("/group/:id", findOneGroupData);
+router.patch("/group", updateGroupData);
+router.delete("/group/:id", deleteGroupData);
 
 export default router;
