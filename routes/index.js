@@ -13,6 +13,13 @@ import {
 	findOneRoleData,
 	updateRoleData,
 } from "../admins/roles/role.controller.js";
+import {
+	createTypeData,
+	deleteTypeData,
+	findAllTypeData,
+	findOneTypeData,
+	updateTypeData,
+} from "../admins/types/type.controller.js";
 
 const router = express.Router();
 
@@ -27,5 +34,11 @@ router.get("/category", findAllCategoryData);
 router.get("/category/:id", findOneCategoryData);
 router.patch("/category", updateCategoryData);
 router.delete("/category/:id", deleteCategoryData);
+
+router.post("/type", createTypeData);
+router.get("/type", findAllTypeData);
+router.get("/type/:id", findOneTypeData);
+router.patch("/type", updateTypeData);
+router.delete("/type/:id", deleteTypeData);
 
 export default router;
