@@ -135,13 +135,23 @@ export const updateRoleData = async (req, res) => {
 
 export const deleteRoleData = async (req, res) => {
 	try {
-		await Role.destroy({
+		const foundData = await Role.findOne({
 			where: {
 				role_id: req.params.id,
 			},
 		});
 
-		return responses(res, 200, "Role data was deleted");
+		if (!foundData || typeof foundData === "string") {
+			return responses(res, 400, "Data is not valid");
+		} else {
+			await Role.destroy({
+				where: {
+					role_id: req.params.id,
+				},
+			});
+
+			return responses(res, 200, "Role data was deleted");
+		}
 	} catch (error) {
 		console.log(error);
 		return responses(res, 500, "server error");
