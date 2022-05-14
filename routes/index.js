@@ -1,5 +1,12 @@
 import express from "express";
 import {
+	createBrandData,
+	deleteBrandData,
+	findAllBrandData,
+	findOneBrandData,
+	updateBrandData,
+} from "../admins/brands/brand.controller.js";
+import {
 	createCategoryData,
 	deleteCategoryData,
 	findAllCategoryData,
@@ -53,5 +60,11 @@ router.get("/group", findAllGroupData);
 router.get("/group/:id", findOneGroupData);
 router.patch("/group", updateGroupData);
 router.delete("/group/:id", deleteGroupData);
+
+router.post("/brand", createBrandData);
+router.get("/brand", findAllBrandData);
+router.get("/brand/:id", findOneBrandData);
+router.patch("/brand", updateBrandData);
+router.delete("/brand/:id", deleteBrandData);
 
 export default router;
