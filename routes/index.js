@@ -25,6 +25,7 @@ import {
 	deleteRoleData,
 	findAllRoleData,
 	findOneRoleData,
+	findRoleDataByName,
 	updateRoleData,
 } from "../admins/roles/role.controller.js";
 import {
@@ -39,6 +40,7 @@ const router = express.Router();
 
 router.post("/role", createRoleData);
 router.get("/role", findAllRoleData);
+router.get("/role/find", findRoleDataByName);
 router.get("/role/:id", findOneRoleData);
 router.patch("/role", updateRoleData);
 router.delete("/role/:id", deleteRoleData);

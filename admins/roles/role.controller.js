@@ -1,4 +1,5 @@
 import { Validator } from "node-input-validator";
+import { Op } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
 import Role from "./role.js";
 import { responses } from "../../util/response.util.js";
@@ -72,6 +73,27 @@ export const findAllRoleData = async (req, res) => {
 			pagination,
 			role,
 		});
+	} catch (error) {
+		console.log(error);
+		return responses(res, 500, "server error");
+	}
+};
+
+export const findRoleDataByName = async (req, res) => {
+	try {
+		const search = req.query.search;
+
+		const role = await Role.findAll({
+			where: {
+				name: {
+					[Op.like]: "%" + search + "%",
+				},
+			},
+			order: [["name", "ASC"]],
+			limit: 10,
+		});
+
+		return responses(res, 200, "Find role data by name", { role });
 	} catch (error) {
 		console.log(error);
 		return responses(res, 500, "server error");
