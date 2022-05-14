@@ -1,4 +1,5 @@
 import { Validator } from "node-input-validator";
+import { Op } from "sequelize";
 import Category from "./category.js";
 import { responses } from "../../util/response.util.js";
 

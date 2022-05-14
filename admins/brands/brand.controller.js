@@ -1,4 +1,5 @@
 import { Validator } from "node-input-validator";
+import { Op } from "sequelize";
 import Brand from "./brand.js";
 import { responses } from "../../util/response.util.js";
 
@@ -59,6 +60,7 @@ export const findAllBrandData = async (req, res) => {
 		const end = page * limit;
 
 		const brand = await Brand.findAndCountAll({
+			order: [["createdAt", "ASC"]],
 			limit: limit,
 			offset: start,
 		});
