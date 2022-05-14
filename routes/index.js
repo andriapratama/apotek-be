@@ -39,6 +39,14 @@ import {
 	findTypeDataByName,
 	updateTypeData,
 } from "../admins/types/type.controller.js";
+import {
+	createUnitData,
+	deleteUnitData,
+	findAllUnitData,
+	findOneUnitData,
+	findUnitDataByName,
+	updateUnitData,
+} from "../admins/units/unit.controller.js";
 
 const router = express.Router();
 
@@ -76,5 +84,12 @@ router.get("/brand/find", findBrandDataByName);
 router.get("/brand/:id", findOneBrandData);
 router.patch("/brand", updateBrandData);
 router.delete("/brand/:id", deleteBrandData);
+
+router.post("/unit", createUnitData);
+router.get("/unit", findAllUnitData);
+router.get("/unit/find", findUnitDataByName);
+router.get("/unit/:id", findOneUnitData);
+router.patch("/unit", updateUnitData);
+router.delete("/unit/:id", deleteUnitData);
 
 export default router;
