@@ -91,6 +91,27 @@ export const findAllCategoryData = async (req, res) => {
 	}
 };
 
+export const findCategoryDataByName = async (req, res) => {
+	try {
+		const search = req.query.search;
+
+		const category = await Category.findAll({
+			where: {
+				name: {
+					[Op.like]: "%" + search + "%",
+				},
+			},
+			order: [["name", "ASC"]],
+			limit: 10,
+		});
+
+		return responses(res, 200, "Find category data by name", { category });
+	} catch (error) {
+		console.log(error);
+		return responses(res, 500, "server error");
+	}
+};
+
 export const findOneCategoryData = async (req, res) => {
 	try {
 		const foundData = await Category.findOne({

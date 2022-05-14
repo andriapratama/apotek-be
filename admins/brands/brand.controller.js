@@ -91,6 +91,27 @@ export const findAllBrandData = async (req, res) => {
 	}
 };
 
+export const findBrandDataByName = async (req, res) => {
+	try {
+		const search = req.query.search;
+
+		const brand = await Brand.findAll({
+			where: {
+				name: {
+					[Op.like]: "%" + search + "%",
+				},
+			},
+			order: [["name", "ASC"]],
+			limit: 10,
+		});
+
+		return responses(res, 200, "Find brand data by name", { brand });
+	} catch (error) {
+		console.log(error);
+		return responses(res, 500, "server error");
+	}
+};
+
 export const findOneBrandData = async (req, res) => {
 	try {
 		const foundData = await Brand.findOne({

@@ -91,6 +91,27 @@ export const findAllGroupData = async (req, res) => {
 	}
 };
 
+export const findGroupDataByName = async (req, res) => {
+	try {
+		const search = req.query.search;
+
+		const group = await Group.findAll({
+			where: {
+				name: {
+					[Op.like]: "%" + search + "%",
+				},
+			},
+			order: [["name", "ASC"]],
+			limit: 10,
+		});
+
+		return responses(res, 200, "Find group data by name", { group });
+	} catch (error) {
+		console.log(error);
+		return responses(res, 500, "server error");
+	}
+};
+
 export const findOneGroupData = async (req, res) => {
 	try {
 		const foundData = await Group.findOne({

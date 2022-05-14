@@ -91,6 +91,27 @@ export const findAllTypeData = async (req, res) => {
 	}
 };
 
+export const findTypeDataByName = async (req, res) => {
+	try {
+		const search = req.query.search;
+
+		const type = await Type.findAll({
+			where: {
+				name: {
+					[Op.like]: "%" + search + "%",
+				},
+			},
+			order: [["name", "ASC"]],
+			limit: 10,
+		});
+
+		return responses(res, 200, "Find type data by name", { type });
+	} catch (error) {
+		console.log(error);
+		return responses(res, 500, "server error");
+	}
+};
+
 export const findOneTypeData = async (req, res) => {
 	try {
 		const foundData = await Type.findOne({
