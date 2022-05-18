@@ -32,6 +32,14 @@ import {
 	updateRoleData,
 } from "../admins/roles/role.controller.js";
 import {
+	createSupplierData,
+	deleteSupplierData,
+	findAllSupplierData,
+	findOneSupplierData,
+	findSupplierDataByName,
+	updateSupplierData,
+} from "../admins/suppliers/supplier.controller.js";
+import {
 	createTypeData,
 	deleteTypeData,
 	findAllTypeData,
@@ -91,5 +99,12 @@ router.get("/unit/find", findUnitDataByName);
 router.get("/unit/:id", findOneUnitData);
 router.patch("/unit", updateUnitData);
 router.delete("/unit/:id", deleteUnitData);
+
+router.post("/supplier", createSupplierData);
+router.get("/supplier", findAllSupplierData);
+router.get("/supplier/find", findSupplierDataByName);
+router.get("/supplier/:id", findOneSupplierData);
+router.patch("/supplier", updateSupplierData);
+router.delete("/supplier/:id", deleteSupplierData);
 
 export default router;
