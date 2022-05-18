@@ -24,6 +24,14 @@ import {
 	updateGroupData,
 } from "../admins/groups/group.controller.js";
 import {
+	createLocationData,
+	deleteLocationData,
+	findAllLocationData,
+	findLocationDataByName,
+	findOneLocationData,
+	updateLocationData,
+} from "../admins/locations/location.controller.js";
+import {
 	createRoleData,
 	deleteRoleData,
 	findAllRoleData,
@@ -99,6 +107,13 @@ router.get("/unit/find", findUnitDataByName);
 router.get("/unit/:id", findOneUnitData);
 router.patch("/unit", updateUnitData);
 router.delete("/unit/:id", deleteUnitData);
+
+router.post("/location", createLocationData);
+router.get("/location", findAllLocationData);
+router.get("/location/find", findLocationDataByName);
+router.get("/location/:id", findOneLocationData);
+router.patch("/location", updateLocationData);
+router.delete("/location/:id", deleteLocationData);
 
 router.post("/supplier", createSupplierData);
 router.get("/supplier", findAllSupplierData);
