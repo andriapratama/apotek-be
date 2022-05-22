@@ -32,6 +32,14 @@ import {
 	updateLocationData,
 } from "../admins/locations/location.controller.js";
 import {
+	createProductData,
+	findAllProductData,
+	findAllProductPriceData,
+	findAllProductStockData,
+	findOneProductData,
+	findProductDataByName,
+} from "../admins/products/product.controller.js";
+import {
 	createRoleData,
 	deleteRoleData,
 	findAllRoleData,
@@ -121,5 +129,12 @@ router.get("/supplier/find", findSupplierDataByName);
 router.get("/supplier/:id", findOneSupplierData);
 router.patch("/supplier", updateSupplierData);
 router.delete("/supplier/:id", deleteSupplierData);
+
+router.post("/product", createProductData);
+router.get("/product", findAllProductData);
+router.get("/product/find", findProductDataByName);
+router.get("/product/:id", findOneProductData);
+router.get("/product/stock/:id", findAllProductStockData);
+router.get("/product/price/:id", findAllProductPriceData);
 
 export default router;
