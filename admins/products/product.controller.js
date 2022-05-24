@@ -207,7 +207,6 @@ export const findAllProductData = async (req, res) => {
 				{ model: Unit, attributes: ["name"] },
 				{ model: Brand, attributes: ["name"] },
 				{ model: ProductLocation, attributes: ["name"] },
-				{ model: ProductSupplier, attributes: ["name"] },
 			],
 			order: [["name", "ASC"]],
 			limit: limit,
@@ -253,7 +252,6 @@ export const findProductDataByName = async (req, res) => {
 				{ model: Unit, attributes: ["name"] },
 				{ model: Brand, attributes: ["name"] },
 				{ model: ProductLocation, attributes: ["name"] },
-				{ model: ProductSupplier, attributes: ["name"] },
 			],
 			where: {
 				name: {
