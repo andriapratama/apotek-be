@@ -56,6 +56,10 @@ import {
 	updateSupplierData,
 } from "../admins/suppliers/supplier.controller.js";
 import {
+	createTransactionData,
+	findTransactionId,
+} from "../admins/transactions/transaction.controller.js";
+import {
 	createTypeData,
 	deleteTypeData,
 	findAllTypeData,
@@ -136,5 +140,8 @@ router.get("/product/find", findProductDataByName);
 router.get("/product/:id", findOneProductData);
 router.get("/product/stock/:id", findAllProductStockData);
 router.get("/product/price/:id", findAllProductPriceData);
+
+router.get("/transaction/code", findTransactionId);
+router.post("/transaction", createTransactionData);
 
 export default router;
