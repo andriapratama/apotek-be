@@ -315,7 +315,7 @@ export const findAllProductStockData = async (req, res) => {
 			where: {
 				product_id: req.params.id,
 			},
-			order: [["createdAt", "ASC"]],
+			order: [["createdAt", "DESC"]],
 			limit: limit,
 			offset: start,
 		});
@@ -360,7 +360,7 @@ export const findAllProductPriceData = async (req, res) => {
 			where: {
 				product_id: req.params.id,
 			},
-			order: [["createdAt", "ASC"]],
+			order: [["createdAt", "DESC"]],
 			limit: limit,
 			offset: start,
 		});
