@@ -1,5 +1,8 @@
 import { Sequelize } from "sequelize";
 import db from "../../config/database.js";
+import Transaction from "./transaction.js";
+import Product from "../products/product.js";
+
 const { DataTypes } = Sequelize;
 
 const TransactionDetail = db.define(
@@ -21,5 +24,11 @@ const TransactionDetail = db.define(
 		freezeTableName: true,
 	}
 );
+
+Product.hasMany(TransactionDetail, { foreignKey: "product_id" });
+TransactionDetail.belongsTo(Product, { foreignKey: "product_id" });
+
+Transaction.hasMany(TransactionDetail, { foreignKey: "transaction_id" });
+TransactionDetail.belongsTo(Transaction, { foreignKey: "transaction_id" });
 
 export default TransactionDetail;

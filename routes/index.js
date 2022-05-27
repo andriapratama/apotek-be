@@ -57,6 +57,8 @@ import {
 } from "../admins/suppliers/supplier.controller.js";
 import {
 	createTransactionData,
+	findAllTransctionData,
+	findOneTransactionData,
 	findTransactionId,
 } from "../admins/transactions/transaction.controller.js";
 import {
@@ -143,5 +145,7 @@ router.get("/product/price/:id", findAllProductPriceData);
 
 router.get("/transaction/code", findTransactionId);
 router.post("/transaction", createTransactionData);
+router.get("/transaction", findAllTransctionData);
+router.get("/transaction/:id", findOneTransactionData);
 
 export default router;

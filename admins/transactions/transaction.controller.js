@@ -6,6 +6,7 @@ import { Op } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
 import Product from "../products/product.js";
 import ProductStock from "../detail-products/product.stock.js";
+import Unit from "../units/unit.js";
 
 export const findTransactionId = async (req, res) => {
 	try {
@@ -185,6 +186,98 @@ export const createTransactionData = async (req, res) => {
 		}
 
 		return responses(res, 200, "success store transaction", req.body);
+	} catch (error) {
+		console.log(error);
+		return responses(res, 500, "server error");
+	}
+};
+
+export const findAllTransctionData = async (req, res) => {
+	try {
+		const limit = 10;
+		const page = parseInt(req.query.page);
+
+		const start = (page - 1) * limit;
+		const end = page * limit;
+
+		const transaction = await Transaction.findAndCountAll({
+			order: [["createdAt", "DESC"]],
+			limit: limit,
+			offset: start,
+		});
+
+		const countFilter = transaction.count;
+		const pagination = {};
+
+		pagination.totalRow = transaction.count;
+		pagination.totalPage = Math.ceil(countFilter / limit);
+
+		if (end < countFilter) {
+			pagination.next = {
+				page: page + 1,
+				limit,
+			};
+		} else if (start > 0) {
+			pagination.prev = {
+				page: page - 1,
+				limit,
+			};
+		}
+
+		return responses(res, 200, "find all transaction data", {
+			pagination,
+			transaction,
+		});
+	} catch (error) {
+		console.log(error);
+		return responses(res, 500, "server error");
+	}
+};
+
+export const findOneTransactionData = async (req, res) => {
+	try {
+		const foundData = await Transaction.findOne({
+			where: {
+				transaction_id: req.params.id,
+			},
+		});
+
+		if (!foundData || typeof foundData === "string") {
+			return responses(res, 400, "Data is not valid");
+		} else {
+			const transaction = await Transaction.findOne({
+				include: [
+					{
+						model: TransactionDetail,
+						attributes: [
+							"discount",
+							"product_id",
+							"quantity",
+							"sub_total",
+							"total_discount",
+							"name",
+						],
+						include: [
+							{
+								model: Product,
+								attributes: ["selling_price"],
+								include: [{ model: Unit, attributes: ["name"] }],
+							},
+						],
+					},
+				],
+				where: {
+					transaction_id: req.params.id,
+				},
+			});
+
+			return responses(
+				res,
+				200,
+				"find one transaction include transaciton detail and product by transaction id",
+				{ transaction }
+			);
+		}
 	} catch (error) {
 		console.log(error);
 		return responses(res, 500, "server error");
