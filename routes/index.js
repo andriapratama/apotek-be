@@ -61,6 +61,7 @@ import {
 	findOneTransactionData,
 	findTransactionId,
 } from "../admins/transactions/transaction.controller.js";
+import { findTransactionDataByDay } from "../admins/transactions/transaction.search.controller.js";
 import {
 	createTypeData,
 	deleteTypeData,
@@ -148,4 +149,5 @@ router.post("/transaction", createTransactionData);
 router.get("/transaction", findAllTransctionData);
 router.get("/transaction/:id", findOneTransactionData);
 
+router.get("/transactions", findTransactionDataByDay);
 export default router;
