@@ -40,6 +40,11 @@ import {
 	findProductDataByName,
 } from "../admins/products/product.controller.js";
 import {
+	createPurchasingData,
+	findAllPurchasingData,
+	findOnePurchasingData,
+} from "../admins/purchasings/purchasing.controller.js";
+import {
 	createRoleData,
 	deleteRoleData,
 	findAllRoleData,
@@ -61,7 +66,9 @@ import {
 	findOneTransactionData,
 	findTransactionId,
 } from "../admins/transactions/transaction.controller.js";
+
 import { findTransactionDataByDay } from "../admins/transactions/transaction.search.controller.js";
+
 import {
 	createTypeData,
 	deleteTypeData,
@@ -150,4 +157,9 @@ router.get("/transaction", findAllTransctionData);
 router.get("/transaction/:id", findOneTransactionData);
 
 router.get("/transactions", findTransactionDataByDay);
+
+router.post("/purchasing", createPurchasingData);
+router.get("/purchasing", findAllPurchasingData);
+router.get("/purchasing/:id", findOnePurchasingData);
+
 export default router;
