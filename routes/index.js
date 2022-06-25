@@ -53,6 +53,11 @@ import {
 	updateRoleData,
 } from "../admins/roles/role.controller.js";
 import {
+	createSotckOpnameData,
+	findAllStockOpnameData,
+	findOneStockOpnameData,
+} from "../admins/stock-opname/stock-opname.controller.js";
+import {
 	createSupplierData,
 	deleteSupplierData,
 	findAllSupplierData,
@@ -161,5 +166,9 @@ router.get("/transactions", findTransactionDataByDay);
 router.post("/purchasing", createPurchasingData);
 router.get("/purchasing", findAllPurchasingData);
 router.get("/purchasing/:id", findOnePurchasingData);
+
+router.post("/stock-opname", createSotckOpnameData);
+router.get("/stock-opname", findAllStockOpnameData);
+router.get("/stock-opname/:id", findOneStockOpnameData);
 
 export default router;
