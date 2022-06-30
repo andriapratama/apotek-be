@@ -16,6 +16,12 @@ import {
 	updateCategoryData,
 } from "../admins/categories/category.controller.js";
 import {
+	findTotalIncomeToday,
+	findTotalProductSoldToday,
+	findTotalOfAllProductSoldToday,
+	findTotalTransactionToday,
+} from "../admins/dashboards/dashboard.controller.js";
+import {
 	createGroupData,
 	deleteGroupData,
 	findAllGroupData,
@@ -170,5 +176,13 @@ router.get("/purchasing/:id", findOnePurchasingData);
 router.post("/stock-opname", createSotckOpnameData);
 router.get("/stock-opname", findAllStockOpnameData);
 router.get("/stock-opname/:id", findOneStockOpnameData);
+
+router.get("/dashboard/total-transaction/today", findTotalTransactionToday);
+router.get("/dashboard/total-product-sold/today", findTotalProductSoldToday);
+router.get("/dashboard/total-income/today", findTotalIncomeToday);
+router.get(
+	"/dashboard/total-all-product-sold/today",
+	findTotalOfAllProductSoldToday
+);
 
 export default router;
